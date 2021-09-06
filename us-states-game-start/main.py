@@ -20,6 +20,9 @@ turtle.shape(image_bkg)
 
 # Read state data file
 states_data = pandas.read_csv("50_states.csv")
+# set data into a list
+all_states = states_data.state.to_list()
+
 state_list = []
 x_list = []
 y_list = []
@@ -48,6 +51,9 @@ while len(guessed_states) < 50:
 
 
     if answer_state == "Exit":
+        missing_states = [state for state in all_states if state not in guessed_states]
+        new_data = pandas.DataFrame(missing_states)
+        new_data.to_csv("state_to_learn.csv")
         break
     for answer in state_list:
         if answer == answer_state:
@@ -63,33 +69,5 @@ while len(guessed_states) < 50:
 
 
 screen.mainloop()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
